@@ -199,6 +199,15 @@ nav a:hover,nav a.active{
   color:#555;
   margin:0 5px;
 }
+.search-message{
+  display:none;
+  margin:12px 5px 18px;
+  padding:12px 14px;
+  background:#fff5f5;
+  border-left:4px solid var(--red);
+  color:#555;
+  border-radius:8px;
+}
 .tag{
   display:inline-block;
   margin:8px 5px 0;
@@ -368,6 +377,7 @@ footer a{color:#fff}
     <div class="grid">
       <section id="newsList">
         <div class="section-title">Berita Terbaru</div>
+        <div id="searchMessage" class="search-message" role="status" aria-live="polite"></div>
 
         <article class="card news" data-category="Indonesia Lokal" onclick="window.location.href='berita_1.html'">
           <img src="2_hutankalimantan_kebakaran_1_1787329464062.jpg?v=20260821" alt="Kebakaran hutan dan lahan Kalimantan">
@@ -485,10 +495,21 @@ function showHome(){
   window.scrollTo(0,0);
 }
 function searchNews(){
-  const q=document.getElementById("searchInput").value.toLowerCase().trim();
-  document.querySelectorAll(".news").forEach(card=>{
-    card.style.display=(!q || card.innerText.toLowerCase().includes(q)) ? "block" : "none";
+  const q=document.getElementById("searchInput").value.toLocaleLowerCase("id-ID").trim();
+  const items=[...document.querySelectorAll(".news"),document.querySelector(".hero")].filter(Boolean);
+  const message=document.getElementById("searchMessage");
+  let found=0;
+  items.forEach(item=>{
+    const content=item.textContent.toLocaleLowerCase("id-ID");
+    const matches=!q || content.includes(q);
+    item.style.display=matches ? "block" : "none";
+    if(matches && q) found++;
   });
+  if(message){
+    message.textContent=q && !found ? "Berita dengan kata \""+q+"\" tidak ditemukan." : "";
+    message.style.display=q && !found ? "block" : "none";
+  }
+  if(q) document.getElementById("newsList").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function filterCategory(category){
   document.querySelectorAll(".news").forEach(card=>{
