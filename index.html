@@ -350,6 +350,8 @@ footer a{color:#fff}
       <a href="#" onclick="filterCategory('Nasional');return false;">Nasional</a>
       <a href="#" onclick="filterCategory('Politik');return false;">Politik</a>
       <a href="#" onclick="filterCategory('Teknologi');return false;">Teknologi</a>
+      <a href="berita_1.html">Indonesia</a>
+      <a href="berita_1.html#lokal">Lokal</a>
     </nav>
   </div>
 </header>
@@ -369,6 +371,14 @@ footer a{color:#fff}
     <div class="grid">
       <section id="newsList">
         <div class="section-title">Berita Terbaru</div>
+
+        <article class="card news" data-category="Indonesia Lokal" onclick="window.location.href='berita_1.html'">
+          <img src="banner_lirasu.png" alt="Kebakaran hutan dan lahan Kalimantan">
+          <h2>Kebakaran Hutan Kalimantan Menghabiskan Setengah Pulau</h2>
+          <p>Kebakaran hutan dan lahan meningkat di sejumlah wilayah Kalimantan. Pemerintah memperkuat penanganan.</p>
+          <span class="tag">Indonesia</span>
+          <span class="tag">Lokal</span>
+        </article>
 
         <article class="card news" data-category="Nasional Teknologi" onclick="openArticle()">
           <img src="sidang_mk_1.jpg" alt="Sidang Mahkamah Konstitusi">
@@ -409,6 +419,8 @@ footer a{color:#fff}
             <li onclick="filterCategory('Nasional')">Nasional</li>
             <li onclick="filterCategory('Politik')">Politik</li>
             <li onclick="filterCategory('Teknologi')">Teknologi</li>
+            <li onclick="window.location.href='berita_1.html'">Indonesia</li>
+            <li onclick="window.location.href='berita_1.html#lokal'">Lokal</li>
           </ul>
         </div>
       </aside>
