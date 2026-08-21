@@ -107,16 +107,23 @@ header{
 
 nav{
   display:flex;
-  justify-content:center;
-  gap:34px;
-  flex-wrap:wrap;
+  justify-content:flex-start;
+  gap:24px;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  white-space:nowrap;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
 }
+nav::-webkit-scrollbar{display:none}
 nav a{
   color:#222;
   text-decoration:none;
   font-weight:800;
   padding:7px 2px;
   border-bottom:3px solid transparent;
+  flex:0 0 auto;
 }
 nav a:hover,nav a.active{
   color:var(--red);
