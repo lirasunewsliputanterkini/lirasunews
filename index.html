@@ -1,857 +1,493 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="LirasuNews - Portal berita akurat, terpercaya, dan terbaru.">
-    <meta name="theme-color" content="#c90000">
-    <title>LirasuNews - Akurat, Terpercaya, Terbaru</title>
-
-    <style>
-        :root {
-            --primary-red: #c90000;
-            --dark-red: #a80000;
-            --white: #ffffff;
-            --dark: #222;
-            --dark-grey: #333;
-            --light-grey: #f4f4f4;
-            --text-grey: #666;
-            --border: #e5e5e5;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", Arial, sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: var(--light-grey);
-            color: var(--dark-grey);
-            line-height: 1.6;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        img {
-            max-width: 100%;
-        }
-
-        button,
-        input {
-            font: inherit;
-        }
-
-        /* HEADER */
-        header {
-            background: var(--white);
-            border-bottom: 3px solid var(--primary-red);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
-        }
-
-        .logo-area img {
-            width: 170px;
-            height: auto;
-            display: block;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            margin-left: auto;
-        }
-
-        .nav-links a {
-            font-weight: 700;
-            padding: 8px 0;
-            border-bottom: 3px solid transparent;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-red);
-            border-color: var(--primary-red);
-        }
-
-        .search-box {
-            display: flex;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            overflow: hidden;
-            background: #fff;
-        }
-
-        .search-box input {
-            width: 150px;
-            border: 0;
-            outline: 0;
-            padding: 8px 10px;
-        }
-
-        .search-box button {
-            border: 0;
-            background: var(--primary-red);
-            color: #fff;
-            padding: 8px 12px;
-            cursor: pointer;
-            font-weight: 700;
-        }
-
-        .search-box button:hover {
-            background: var(--dark-red);
-        }
-
-        /* CONTAINER */
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        /* BANNER */
-        .top-banner {
-            margin-bottom: 20px;
-        }
-
-        .top-banner img {
-            width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-            display: block;
-            border-radius: 10px;
-            box-shadow: 0 3px 12px rgba(0,0,0,.08);
-        }
-
-        /* HOME */
-        #home-section {
-            display: block;
-        }
-
-        #article-section {
-            display: none;
-        }
-
-        .hero {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,.05);
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-
-        .hero-main {
-            cursor: pointer;
-        }
-
-        .hero-main img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            display: block;
-            border-radius: 8px;
-        }
-
-        .hero-text {
-            margin-top: 15px;
-        }
-
-        .hero-text h2 {
-            color: var(--primary-red);
-            font-size: 27px;
-            line-height: 1.25;
-            margin-bottom: 10px;
-        }
-
-        .hero-side {
-            border-left: 1px solid var(--border);
-            padding-left: 20px;
-        }
-
-        .hero-side h3 {
-            color: var(--primary-red);
-            margin-bottom: 10px;
-        }
-
-        .popular-item {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            font-weight: 700;
-        }
-
-        .popular-item:hover {
-            color: var(--primary-red);
-        }
-
-        /* ADS */
-        .ad-box {
-            border: 2px dashed #ddd;
-            padding: 15px;
-            text-align: center;
-            border-radius: 8px;
-            margin: 15px 0;
-            background: #fafafa;
-            color: #555;
-        }
-
-        /* CONTENT */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 3fr 1fr;
-            gap: 20px;
-        }
-
-        .news-card {
-            background: var(--white);
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,.05);
-            transition: transform .2s ease, box-shadow .2s ease;
-        }
-
-        .news-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,.09);
-        }
-
-        .news-card img {
-            width: 200px;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 6px;
-            flex-shrink: 0;
-        }
-
-        .news-details h3 {
-            color: var(--primary-red);
-            line-height: 1.3;
-            margin-bottom: 8px;
-        }
-
-        .sidebar .widget {
-            background: var(--white);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,.05);
-        }
-
-        .widget h3 {
-            color: var(--primary-red);
-            border-bottom: 2px solid var(--primary-red);
-            padding-bottom: 8px;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-
-        .widget ul {
-            list-style: none;
-        }
-
-        .widget li {
-            padding: 10px 0;
-            border-bottom: 1px dotted #ddd;
-            cursor: pointer;
-        }
-
-        .widget li:hover {
-            color: var(--primary-red);
-        }
-
-        /* TAG */
-        .tag {
-            background: #f0f0f0;
-            color: #555;
-            padding: 3px 9px;
-            border-radius: 12px;
-            font-size: 12px;
-            display: inline-block;
-            margin: 4px 4px 0 0;
-        }
-
-        /* ARTICLE */
-        .back-btn {
-            display: inline-block;
-            color: var(--primary-red);
-            font-weight: 700;
-            margin-bottom: 15px;
-            cursor: pointer;
-        }
-
-        .article-detail {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 900px;
-            margin: 0 auto;
-            box-shadow: 0 2px 8px rgba(0,0,0,.05);
-        }
-
-        .article-header h1 {
-            font-size: 32px;
-            line-height: 1.25;
-            margin-bottom: 18px;
-        }
-
-        .meta-info {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            color: var(--text-grey);
-            font-size: 14px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 15px;
-        }
-
-        .article-body {
-            line-height: 1.8;
-            font-size: 16px;
-        }
-
-        .article-body p {
-            margin-bottom: 15px;
-        }
-
-        .article-body h3 {
-            color: var(--primary-red);
-            margin: 25px 0 10px;
-        }
-
-        .article-body img {
-            width: 100%;
-            max-width: 800px;
-            display: block;
-            margin: 25px auto 8px;
-            border-radius: 7px;
-        }
-
-        .caption {
-            text-align: center;
-            font-size: 13px;
-            color: #777;
-            margin-bottom: 20px;
-        }
-
-        .article-source {
-            margin-top: 30px;
-            border-top: 1px solid var(--border);
-            padding-top: 20px;
-        }
-
-        .article-source a {
-            color: var(--primary-red);
-            font-weight: 600;
-        }
-
-        /* FOOTER */
-        footer {
-            background: #1a1a1a;
-            color: #ccc;
-            padding: 40px 20px;
-            margin-top: 40px;
-        }
-
-        .footer-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .footer-grid h3 {
-            color: #fff;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--primary-red);
-            padding-left: 10px;
-        }
-
-        .footer-grid a {
-            color: #fff;
-        }
-
-        .footer-grid a:hover {
-            color: #ff4b4b;
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 25px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid #333;
-            text-align: center;
-        }
-
-        /* MOBILE */
-        @media (max-width: 900px) {
-            .header-inner {
-                flex-wrap: wrap;
-            }
-
-            .nav-links {
-                order: 3;
-                width: 100%;
-                justify-content: center;
-                margin-left: 0;
-                flex-wrap: wrap;
-            }
-
-            .search-box {
-                margin-left: auto;
-            }
-
-            .content-grid,
-            .hero-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-side {
-                border-left: 0;
-                border-top: 1px solid var(--border);
-                padding: 15px 0 0;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 0 12px;
-                margin-top: 12px;
-            }
-
-            .header-inner {
-                padding: 10px 12px;
-                gap: 10px;
-            }
-
-            .logo-area img {
-                width: 135px;
-            }
-
-            .search-box {
-                width: 100%;
-                order: 2;
-            }
-
-            .search-box input {
-                width: 100%;
-            }
-
-            .nav-links {
-                order: 3;
-                gap: 12px;
-                font-size: 14px;
-            }
-
-            .top-banner img {
-                max-height: 220px;
-            }
-
-            .hero {
-                padding: 12px;
-            }
-
-            .hero-main img {
-                height: 220px;
-            }
-
-            .hero-text h2 {
-                font-size: 22px;
-            }
-
-            .news-card {
-                flex-direction: column;
-            }
-
-            .news-card img {
-                width: 100%;
-                height: 210px;
-            }
-
-            .article-detail {
-                padding: 18px;
-            }
-
-            .article-header h1 {
-                font-size: 25px;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="LirasuNews - Akurat, Terpercaya, Terbaru.">
+<meta name="theme-color" content="#c90000">
+<title>LIRASUNEWS — Akurat, Terpercaya, Terbaru</title>
+
+<style>
+:root{
+  --red:#c90000;
+  --red-dark:#a90000;
+  --text:#202020;
+  --muted:#777;
+  --bg:#f4f4f4;
+  --white:#fff;
+  --line:#e8e8e8;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+img{max-width:100%;display:block}
+button,input{font:inherit}
+
+header{
+  background:#fff;
+  box-shadow:0 2px 14px rgba(0,0,0,.08);
+  position:relative;
+  z-index:10;
+}
+
+/* Banner paling atas, full lebar + efek blur lembut di tepi */
+.banner-wrap{
+  width:100%;
+  overflow:hidden;
+  background:#fff;
+  position:relative;
+}
+.banner-wrap:before,
+.banner-wrap:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  height:28px;
+  z-index:2;
+  pointer-events:none;
+}
+.banner-wrap:before{
+  top:0;
+  background:linear-gradient(to bottom,rgba(255,255,255,.65),transparent);
+}
+.banner-wrap:after{
+  bottom:0;
+  background:linear-gradient(to top,rgba(255,255,255,.9),transparent);
+}
+.banner{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  object-position:center;
+}
+
+.header-inner{
+  max-width:1180px;
+  margin:auto;
+  padding:13px 18px 10px;
+}
+.site-name{
+  text-align:center;
+  font-size:30px;
+  line-height:1.1;
+  font-weight:900;
+  letter-spacing:1px;
+  color:var(--red);
+  margin-bottom:11px;
+}
+.site-name span{color:#222}
+
+.search{
+  display:flex;
+  max-width:780px;
+  margin:0 auto 12px;
+  background:#fff;
+  border:1px solid #d7d7d7;
+  border-radius:12px;
+  overflow:hidden;
+}
+.search input{
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  padding:14px 16px;
+  font-size:17px;
+}
+.search button{
+  border:0;
+  background:var(--red);
+  color:#fff;
+  padding:0 25px;
+  font-weight:800;
+  cursor:pointer;
+}
+.search button:hover{background:var(--red-dark)}
+
+nav{
+  display:flex;
+  justify-content:center;
+  gap:34px;
+  flex-wrap:wrap;
+}
+nav a{
+  color:#222;
+  text-decoration:none;
+  font-weight:800;
+  padding:7px 2px;
+  border-bottom:3px solid transparent;
+}
+nav a:hover,nav a.active{
+  color:var(--red);
+  border-bottom-color:var(--red);
+}
+
+.container{
+  max-width:1180px;
+  margin:20px auto;
+  padding:0 18px;
+}
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:24px 0 14px;
+  font-size:23px;
+  font-weight:800;
+}
+.section-title:after{
+  content:"";
+  height:3px;
+  flex:1;
+  background:var(--red);
+  border-radius:10px;
+}
+
+.hero{
+  background:#fff;
+  padding:14px;
+  border-radius:18px;
+  box-shadow:0 5px 24px rgba(0,0,0,.07);
+}
+.hero img{
+  width:100%;
+  height:430px;
+  object-fit:cover;
+  border-radius:14px;
+}
+.hero h1{
+  color:var(--red);
+  font-size:31px;
+  line-height:1.2;
+  margin:15px 8px 8px;
+}
+.hero p{
+  margin:0 8px;
+  color:#555;
+  font-size:16px;
+}
+.meta{
+  color:var(--muted);
+  font-size:13px;
+  margin:8px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:minmax(0,2fr) minmax(260px,1fr);
+  gap:20px;
+  margin-top:20px;
+}
+.card{
+  background:#fff;
+  padding:12px;
+  border-radius:16px;
+  box-shadow:0 4px 18px rgba(0,0,0,.06);
+  margin-bottom:16px;
+  cursor:pointer;
+}
+.card img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  border-radius:12px;
+}
+.card h2,.card h3{
+  color:var(--red);
+  line-height:1.25;
+  margin:12px 5px 7px;
+}
+.card p{
+  color:#555;
+  margin:0 5px;
+}
+.tag{
+  display:inline-block;
+  margin:8px 5px 0;
+  padding:3px 9px;
+  border-radius:20px;
+  background:#fce8e8;
+  color:#a90000;
+  font-size:11px;
+  font-weight:700;
+}
+
+.sidebar .widget{
+  background:#fff;
+  border-radius:16px;
+  padding:17px;
+  margin-bottom:16px;
+  box-shadow:0 4px 18px rgba(0,0,0,.06);
+}
+.widget h3{
+  color:var(--red);
+  border-left:4px solid var(--red);
+  padding-left:9px;
+  margin:0 0 8px;
+}
+.widget ul{padding:0;margin:0}
+.widget li{
+  list-style:none;
+  padding:11px 0;
+  border-bottom:1px solid var(--line);
+  font-weight:700;
+}
+.widget li:last-child{border-bottom:0}
+
+.article{
+  display:none;
+  background:#fff;
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 5px 24px rgba(0,0,0,.07);
+}
+.back{
+  display:inline-block;
+  color:var(--red);
+  font-weight:800;
+  margin-bottom:12px;
+  cursor:pointer;
+}
+.article h1{
+  font-size:34px;
+  line-height:1.2;
+  margin:0 0 12px;
+}
+.article .article-img{
+  width:100%;
+  max-height:520px;
+  object-fit:cover;
+  border-radius:14px;
+  margin:18px 0 7px;
+}
+.article p{font-size:16px;line-height:1.85}
+.article h2{
+  color:var(--red);
+  margin-top:24px;
+}
+.caption{
+  color:#777;
+  text-align:center;
+  font-size:12px;
+  margin-bottom:18px;
+}
+.source{
+  border-top:1px solid var(--line);
+  margin-top:25px;
+  padding-top:15px;
+}
+.source a{color:var(--red);font-weight:700}
+
+footer{
+  margin-top:35px;
+  background:#171717;
+  color:#ddd;
+  padding:35px 18px;
+}
+.footer-inner{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:35px;
+}
+footer h3{
+  color:#fff;
+  border-left:4px solid var(--red);
+  padding-left:9px;
+}
+footer a{color:#fff}
+.copy{
+  max-width:1180px;
+  margin:22px auto 0;
+  padding-top:15px;
+  border-top:1px solid #333;
+  text-align:center;
+}
+
+@media(max-width:800px){
+  .banner{height:190px}
+  .grid{grid-template-columns:1fr}
+  .hero img{height:330px}
+  .site-name{font-size:27px}
+}
+@media(max-width:500px){
+  .banner{height:150px}
+  .header-inner{padding:10px 12px}
+  .site-name{font-size:23px}
+  nav{gap:17px;font-size:14px}
+  .container{padding:0 10px;margin-top:12px}
+  .hero{padding:8px;border-radius:14px}
+  .hero img{height:220px;border-radius:11px}
+  .hero h1{font-size:23px;margin:12px 5px 7px}
+  .article{padding:16px}
+  .article h1{font-size:25px}
+  .footer-inner{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="header-inner">
-        <a class="logo-area" href="#" onclick="showHome(); return false;" aria-label="LirasuNews">
-            <img src="logo_lirasu.png" alt="Logo LirasuNews">
-        </a>
+  <!-- LOGO LAMA TIDAK DIPAKAI. BANNER MENJADI BAGIAN PALING ATAS -->
+  <div class="banner-wrap">
+    <img class="banner" src="banner_lirasu.png" alt="LirasuNews">
+  </div>
 
-        <nav class="nav-links" aria-label="Navigasi utama">
-            <a href="#" onclick="showHome(); return false;">Beranda</a>
-            <a href="#nasional" onclick="showHome(); return false;">Nasional</a>
-            <a href="#politik" onclick="showHome(); return false;">Politik</a>
-            <a href="#teknologi" onclick="showHome(); return false;">Teknologi</a>
-        </nav>
+  <div class="header-inner">
+    <div class="site-name">LIRASU<span>NEWS</span></div>
 
-        <div class="search-box">
-            <input
-                type="search"
-                id="searchInput"
-                placeholder="Cari berita..."
-                aria-label="Cari berita"
-                onkeydown="if(event.key === 'Enter') searchNews()"
-            >
-            <button type="button" onclick="searchNews()">Cari</button>
-        </div>
+    <div class="search">
+      <input id="searchInput" type="search" placeholder="Cari berita..."
+             onkeydown="if(event.key==='Enter') searchNews()">
+      <button onclick="searchNews()">Cari</button>
     </div>
+
+    <nav>
+      <a class="active" href="#" onclick="showHome();return false;">Beranda</a>
+      <a href="#" onclick="filterCategory('Nasional');return false;">Nasional</a>
+      <a href="#" onclick="filterCategory('Politik');return false;">Politik</a>
+      <a href="#" onclick="filterCategory('Teknologi');return false;">Teknologi</a>
+    </nav>
+  </div>
 </header>
 
 <main class="container">
 
-    <!-- HOME -->
-    <section id="home-section">
+  <section id="home">
+    <div class="section-title">Berita Utama</div>
 
-        <!-- FILE ASLI: banner_lirasu.png -->
-        <div class="top-banner">
-            <img
-                src="banner_lirasu.png"
-                alt="Banner LirasuNews"
-                onerror="this.style.display='none';"
-            >
-        </div>
+    <article class="hero" onclick="openArticle()">
+      <img src="gedung_mk.jpg" alt="Gedung Mahkamah Konstitusi">
+      <h1>MK Putuskan Sisa Kuota Internet Tidak Boleh Hangus</h1>
+      <p>Mahkamah Konstitusi memutuskan bahwa sisa kuota internet pelanggan tidak boleh hangus dan operator wajib memberikan perlindungan bagi konsumen.</p>
+      <div class="meta">LirasuNews • 20 Agustus 2026, 18:25 WIB</div>
+    </article>
 
-        <div class="hero">
-            <div class="hero-grid">
+    <div class="grid">
+      <section id="newsList">
+        <div class="section-title">Berita Terbaru</div>
 
-                <div class="hero-main" onclick="showArticle()">
-                    <img src="gedung_mk.jpg" alt="Gedung Mahkamah Konstitusi">
-                    <div class="hero-text">
-                        <h2>MK Putuskan Sisa Kuota Internet Tidak Boleh Hangus</h2>
-                        <p>
-                            Mahkamah Konstitusi (MK) melalui Putusan Nomor
-                            273/PUU-XXIII/2025 mewajibkan operator seluler
-                            untuk melindungi hak konsumen atas sisa kuota.
-                        </p>
-                        <small style="color:#666;">
-                            Raffi Srijaya | 20 Agustus 2026, 18:25 WIB
-                        </small>
-                    </div>
-                </div>
-
-                <div class="hero-side">
-                    <h3>Berita Populer</h3>
-                    <div class="popular-item" onclick="showArticle()">
-                        Tanggapan MK Soal Internet Anti Hangus
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="ad-box" id="adTop">
-            📢 Iklan: Promo Paket Internet Terbaik 2026
-        </div>
-
-        <div class="content-grid">
-
-            <section>
-                <article class="news-card" onclick="showArticle()">
-                    <img src="gedung_mk.jpg" alt="Putusan Mahkamah Konstitusi">
-                    <div class="news-details">
-                        <h3>
-                            Tanggapan MK Soal Internet Anti Hangus:
-                            Sisa Kuota Harus Diputar!
-                        </h3>
-
-                        <p>
-                            Mahkamah Konstitusi (MK) memutuskan bahwa sisa
-                            kuota internet pelanggan tidak boleh hangus.
-                            Operator wajib memberikan opsi perlindungan
-                            seperti rollover atau refund.
-                        </p>
-
-                        <small>
-                            Penulis: Raffi Srijaya |
-                            20 Agustus 2026, 18:25 WIB
-                        </small>
-
-                        <div style="margin-top:8px;">
-                            <span class="tag">#kupas tuntas</span>
-                            <span class="tag">#suara.com</span>
-                            <span class="tag">#kompas.com</span>
-                        </div>
-                    </div>
-                </article>
-            </section>
-
-            <aside class="sidebar">
-
-                <div class="widget">
-                    <h3>Berita Terbaru</h3>
-                    <ul>
-                        <li onclick="showArticle()">
-                            MK Putuskan Sisa Kuota Tak Boleh Hangus
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="widget ad-box" id="adSide">
-                    📢 Iklan: Diskon 40% Paket Data!
-                </div>
-
-            </aside>
-
-        </div>
-    </section>
-
-    <!-- DETAIL ARTIKEL -->
-    <section id="article-section">
-
-        <a class="back-btn" onclick="showHome()">← Kembali ke Beranda</a>
-
-        <article class="article-detail">
-
-            <div class="article-header">
-                <h1>
-                    Tanggapan MK Soal Internet Anti Hangus:
-                    Sisa Kuota Tidak Boleh Hangus dan Wajib Diputar
-                </h1>
-
-                <div class="meta-info">
-                    <div>
-                        <strong>Penulis:</strong> Raffi Srijaya<br>
-                        <strong>Terbit:</strong> 20 Agustus 2026, 18:25 WIB
-                    </div>
-
-                    <div>
-                        <span class="tag">#kupas tuntas</span>
-                        <span class="tag">#suara.com</span>
-                        <span class="tag">#kompas.com</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-body">
-
-                <img src="gedung_mk.jpg" alt="Gedung Mahkamah Konstitusi">
-                <div class="caption">
-                    Gedung MK RI. Foto: LirasuNews
-                </div>
-
-                <p>
-                    <strong>Jakarta, LirasuNews</strong> –
-                    Mahkamah Konstitusi (MK) melalui Putusan Nomor
-                    273/PUU-XXIII/2025 memutuskan bahwa sisa kuota internet
-                    pelanggan tidak boleh hangus. Operator wajib menyediakan
-                    pilihan mekanisme perlindungan bagi konsumen atas nilai
-                    ekonomi kuota.
-                </p>
-
-                <h3>Poin Penting Putusan MK</h3>
-
-                <p>
-                    <strong>Bukan Berlaku Selamanya Tanpa Syarat:</strong>
-                    MK menuntut operator memberikan pilihan yang adil.
-                </p>
-
-                <p>
-                    <strong>Opsi Perlindungan Konsumen:</strong>
-                    Akumulasi kuota (rollover), perpanjangan masa aktif,
-                    atau pengembalian dana (refund).
-                </p>
-
-                <p>
-                    <strong>Tanpa Biaya Tambahan:</strong>
-                    Perlindungan sisa kuota tidak boleh dibebani biaya tambahan.
-                </p>
-
-                <img src="sidang_mk_1.jpg" alt="Hakim MK">
-                <div class="caption">
-                    Hakim MK membacakan putusan. Foto: LirasuNews
-                </div>
-
-                <img src="infografis_mk.jpg" alt="Infografis Sisa Kuota">
-                <div class="caption">
-                    Infografis putusan MK. Foto: LirasuNews
-                </div>
-
-                <img src="ruang_sidang_mk.jpg" alt="Ruang Sidang MK">
-                <div class="caption">
-                    Suasana sidang MK. Foto: LirasuNews
-                </div>
-
-                <div class="article-source">
-                    <strong>Sumber Informasi:</strong><br>
-
-                    <a
-                        href="https://share.google.com/images/PYKrpqeplFtysObLJ"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >Suara.com</a>
-                    |
-
-                    <a
-                        href="https://youtu.be/hh1axVDOCvE?si=O6tq51Twzrzdr1l_"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >Kompas.com</a>
-                    |
-
-                    <a
-                        href="https://share.google.com/images/Ye8ppIc9T54XriYWh"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >Kupas Tuntas</a>
-                </div>
-
-            </div>
+        <article class="card news" data-category="Nasional Teknologi" onclick="openArticle()">
+          <img src="sidang_mk_1.jpg" alt="Sidang Mahkamah Konstitusi">
+          <h2>MK Putuskan Sisa Kuota Internet Tidak Boleh Hangus</h2>
+          <p>Putusan MK memberikan perlindungan lebih kuat kepada konsumen layanan internet terkait sisa kuota.</p>
+          <span class="tag">Nasional</span>
+          <span class="tag">Teknologi</span>
         </article>
-    </section>
+
+        <article class="card news" data-category="Nasional" onclick="openArticle()">
+          <img src="ruang_sidang_mk.jpg" alt="Ruang sidang Mahkamah Konstitusi">
+          <h3>Suasana Sidang MK dan Putusan Perlindungan Konsumen</h3>
+          <p>Informasi mengenai jalannya sidang dan poin penting putusan.</p>
+          <span class="tag">Nasional</span>
+        </article>
+
+        <article class="card news" data-category="Teknologi" onclick="openArticle()">
+          <img src="infografis_mk.jpg" alt="Infografis MK">
+          <h3>Infografis: Apa Dampak Putusan MK bagi Pengguna Internet?</h3>
+          <p>Ringkasan poin penting putusan untuk pembaca LirasuNews.</p>
+          <span class="tag">Teknologi</span>
+        </article>
+      </section>
+
+      <aside class="sidebar">
+        <div class="widget">
+          <h3>Berita Populer</h3>
+          <ul>
+            <li onclick="openArticle()">Sisa Kuota Internet Tidak Boleh Hangus</li>
+            <li onclick="openArticle()">Poin Penting Putusan MK</li>
+            <li onclick="openArticle()">Dampak bagi Pengguna Internet</li>
+          </ul>
+        </div>
+
+        <div class="widget">
+          <h3>Kategori</h3>
+          <ul>
+            <li onclick="filterCategory('Nasional')">Nasional</li>
+            <li onclick="filterCategory('Politik')">Politik</li>
+            <li onclick="filterCategory('Teknologi')">Teknologi</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="article" class="article">
+    <div class="back" onclick="showHome()">← Kembali ke Beranda</div>
+
+    <h1>MK Putuskan Sisa Kuota Internet Tidak Boleh Hangus</h1>
+    <div class="meta">LirasuNews • 20 Agustus 2026, 18:25 WIB</div>
+
+    <img class="article-img" src="gedung_mk.jpg" alt="Gedung Mahkamah Konstitusi">
+    <div class="caption">Gedung Mahkamah Konstitusi.</div>
+
+    <p><strong>Jakarta, LirasuNews</strong> — Mahkamah Konstitusi memutuskan bahwa sisa kuota internet pelanggan tidak boleh hangus. Putusan tersebut menjadi perhatian karena berkaitan langsung dengan perlindungan konsumen layanan telekomunikasi.</p>
+
+    <h2>Poin Penting</h2>
+    <p>Operator perlu memberikan mekanisme perlindungan terhadap sisa kuota sesuai ketentuan yang berlaku. Informasi teknis mengenai pelaksanaan putusan perlu diperhatikan oleh pelanggan dan penyedia layanan.</p>
+
+    <img class="article-img" src="sidang_mk_1.jpg" alt="Sidang MK">
+    <div class="caption">Sidang Mahkamah Konstitusi.</div>
+
+    <img class="article-img" src="infografis_mk.jpg" alt="Infografis MK">
+    <div class="caption">Infografis terkait putusan.</div>
+
+    <img class="article-img" src="ruang_sidang_mk.jpg" alt="Ruang sidang MK">
+    <div class="caption">Ruang sidang Mahkamah Konstitusi.</div>
+
+    <div class="source">
+      <strong>Sumber:</strong><br>
+      <a href="https://share.google.com/images/PYKrpqeplFtysObLJ" target="_blank">Suara.com</a> |
+      <a href="https://youtu.be/hh1axVDOCvE?si=O6tq51Twzrzdr1l_" target="_blank">Kompas.com</a> |
+      <a href="https://share.google.com/images/Ye8ppIc9T54XriYWh" target="_blank">Kupas Tuntas</a>
+    </div>
+  </section>
 
 </main>
 
 <footer>
-    <div class="footer-grid">
-
-        <div>
-            <h3>Tentang Kami</h3>
-
-            <p>
-                <strong>LirasuNews</strong> adalah portal berita aktual,
-                terpercaya, dan relevan bagi masyarakat. Menyajikan berbagai
-                informasi dari dalam dan luar negeri. LirasuNews mengutamakan
-                akurasi, berimbang, dan dapat dipertanggungjawabkan.
-            </p>
-
-            <p style="margin-top:10px;">
-                <em>LirasuNews — Akurat, Terpercaya, Terbaru.</em>
-            </p>
-        </div>
-
-        <div>
-            <h3>Hubungi Kami</h3>
-
-            <p>
-                Informasi, koreksi berita, dan kerja sama silakan hubungi
-                tim kami.
-            </p>
-
-            <ul style="list-style:none; padding:0; margin-top:10px;">
-                <li>
-                    <strong>WhatsApp:</strong>
-                    <a href="https://wa.me/6287896927345"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        +62 878-9692-7345
-                    </a>
-                </li>
-
-                <li>
-                    <strong>Email:</strong>
-                    redaksi@lirasunews.com
-                </li>
-            </ul>
-        </div>
-
+  <div class="footer-inner">
+    <div>
+      <h3>Tentang Kami</h3>
+      <p><strong>LirasuNews</strong> adalah portal berita yang menyajikan informasi aktual dengan mengutamakan akurasi, kepercayaan, dan informasi terbaru.</p>
+      <p style="margin-top:8px"><em>Akurat • Terpercaya • Terbaru</em></p>
     </div>
-
-    <div class="footer-bottom">
-        <p>
-            &copy; 2026 LirasuNews - Hak Cipta Dilindungi.
-        </p>
+    <div>
+      <h3>Kontak</h3>
+      <p>Untuk informasi, koreksi berita, atau kerja sama, hubungi redaksi LirasuNews.</p>
+      <p style="margin-top:8px"><strong>WhatsApp:</strong> <a href="https://wa.me/6287896927345" target="_blank">+62 878-9692-7345</a></p>
     </div>
+  </div>
+  <div class="copy">© 2026 LirasuNews — Hak Cipta Dilindungi.</div>
 </footer>
 
 <script>
-    function showHome() {
-        document.getElementById("home-section").style.display = "block";
-        document.getElementById("article-section").style.display = "none";
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function showArticle() {
-        document.getElementById("home-section").style.display = "none";
-        document.getElementById("article-section").style.display = "block";
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function searchNews() {
-        const input = document
-            .getElementById("searchInput")
-            .value
-            .trim()
-            .toLowerCase();
-
-        const cards = document.querySelectorAll(".news-card");
-
-        cards.forEach(function(card) {
-            const title = card
-                .querySelector("h3")
-                .innerText
-                .toLowerCase();
-
-            card.style.display =
-                input === "" || title.includes(input)
-                    ? "flex"
-                    : "none";
-        });
-    }
-
-    // Iklan acak sederhana
-    const ads = [
-        "Promo Paket Data 50% Off!",
-        "Asuransi Kesehatan Terbaik 2026",
-        "Kursus Online Bersertifikat"
-    ];
-
-    document.getElementById("adTop").innerHTML =
-        "📢 Iklan: " +
-        ads[Math.floor(Math.random() * ads.length)];
-
-    document.getElementById("adSide").innerHTML =
-        "📢 Iklan: " +
-        ads[Math.floor(Math.random() * ads.length)];
+function openArticle(){
+  document.getElementById("home").style.display="none";
+  document.getElementById("article").style.display="block";
+  window.scrollTo(0,0);
+}
+function showHome(){
+  document.getElementById("article").style.display="none";
+  document.getElementById("home").style.display="block";
+  window.scrollTo(0,0);
+}
+function searchNews(){
+  const q=document.getElementById("searchInput").value.toLowerCase().trim();
+  document.querySelectorAll(".news").forEach(card=>{
+    card.style.display=(!q || card.innerText.toLowerCase().includes(q)) ? "block" : "none";
+  });
+}
+function filterCategory(category){
+  document.querySelectorAll(".news").forEach(card=>{
+    const cats=card.dataset.category || "";
+    card.style.display=cats.includes(category) ? "block" : "none";
+  });
+  document.getElementById("newsList").scrollIntoView({behavior:"smooth"});
+}
 </script>
 
 </body>
