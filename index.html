@@ -105,17 +105,7 @@ header{
 }
 .search button:hover{background:var(--red-dark)}
 
-nav{
-  display:flex;
-  justify-content:flex-start;
-  gap:24px;
-  flex-wrap:nowrap;
-  overflow-x:auto;
-  white-space:nowrap;
-  scroll-behavior:smooth;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-}
+nav{display:flex !important;justify-content:flex-start !important;align-items:center;gap:24px;flex-wrap:nowrap !important;overflow-x:auto;overflow-y:hidden;white-space:nowrap;width:100%;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
 nav a{
   color:#222;
@@ -124,7 +114,7 @@ nav a{
   padding:7px 2px;
   border-bottom:3px solid transparent;
   flex:0 0 auto;
-}
+;flex:0 0 auto;white-space:nowrap}
 nav a:hover,nav a.active{
   color:var(--red);
   border-bottom-color:var(--red);
