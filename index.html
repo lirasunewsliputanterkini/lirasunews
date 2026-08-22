@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="LirasuNews - Akurat, Terpercaya, Terbaru.">
 <meta name="theme-color" content="#c90000">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MK Putuskan Sisa Kuota Internet Tidak Boleh Hangus — LirasuNews">
+<meta property="og:description" content="Mahkamah Konstitusi memutuskan bahwa sisa kuota internet pelanggan tidak boleh hangus.">
+<meta property="og:url" content="https://lirasunewsliputanterkini.github.io/lirasunews/">
+<meta property="og:image" content="https://lirasunewsliputanterkini.github.io/lirasunews/gedung_mk.jpg">
+<meta property="og:image:alt" content="Gedung Mahkamah Konstitusi">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MK Putuskan Sisa Kuota Internet Tidak Boleh Hangus">
+<meta name="twitter:description" content="Mahkamah Konstitusi memutuskan bahwa sisa kuota internet pelanggan tidak boleh hangus.">
+<meta name="twitter:image" content="https://lirasunewsliputanterkini.github.io/lirasunews/gedung_mk.jpg">
 <title>LIRASUNEWS — Akurat, Terpercaya, Terbaru</title>
 
 <style>
@@ -331,6 +341,7 @@ footer a{color:#fff}
   .article h1{font-size:25px}
   .footer-inner{grid-template-columns:1fr}
 }
+.share-box{margin:20px 0;padding:16px;background:#fff5f5;border:1px solid #f3d0d0;border-radius:12px}.share-title{color:var(--red);font-weight:800;margin-bottom:10px}.share-actions{display:flex;flex-wrap:wrap;gap:8px}.share-btn{border:0;border-radius:8px;padding:9px 12px;background:var(--red);color:#fff;font-weight:700;cursor:pointer}.share-btn:hover{background:var(--red-dark)}.share-btn.secondary{background:#333}.share-btn.secondary:hover{background:#111}
 </style>
 </head>
 
@@ -372,6 +383,7 @@ footer a{color:#fff}
       <h1>MK Putuskan Sisa Kuota Internet Tidak Boleh Hangus</h1>
       <p>Mahkamah Konstitusi memutuskan bahwa sisa kuota internet pelanggan tidak boleh hangus dan operator wajib memberikan perlindungan bagi konsumen.</p>
       <div class="meta">LirasuNews • 20 Agustus 2026, 18:25 WIB</div>
+    <div class="share-box"><div class="share-title">Bagikan berita ini</div><div class="share-actions"><button class="share-btn" onclick="shareNews('whatsapp')">WhatsApp</button><button class="share-btn" onclick="shareNews('facebook')">Facebook</button><button class="share-btn" onclick="shareNews('x')">X</button><button class="share-btn" onclick="shareNews('telegram')">Telegram</button><button class="share-btn secondary" onclick="shareNews('native')">Bagikan ke aplikasi lain</button><button class="share-btn secondary" onclick="copyNewsLink()">Salin tautan</button></div><div id="shareStatus" class="caption" role="status" aria-live="polite"></div></div>
     </article>
 
     <div class="grid">
@@ -520,5 +532,10 @@ function filterCategory(category){
 }
 </script>
 
+<script>
+function getNewsShareData(){const title=document.querySelector(".article h1")?.textContent.trim()||document.title;const description=document.querySelector("meta[name=description]")?.content||title;return {title,description,url:window.location.href};}
+function shareNews(type){const data=getNewsShareData();const text=data.title+"\n\n"+data.description+"\n\n"+data.url;const links={whatsapp:"https://api.whatsapp.com/send?text="+encodeURIComponent(text),facebook:"https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(data.url),x:"https://twitter.com/intent/tweet?text="+encodeURIComponent(data.title)+"&url="+encodeURIComponent(data.url),telegram:"https://t.me/share/url?url="+encodeURIComponent(data.url)+"&text="+encodeURIComponent(data.title)};if(type==="native"&&navigator.share){navigator.share({title:data.title,text:data.description,url:data.url}).catch(()=>{});return;}if(type==="native"){copyNewsLink();return;}window.open(links[type],"_blank","noopener,noreferrer,width=650,height=600");}
+async function copyNewsLink(){const status=document.getElementById("shareStatus");try{await navigator.clipboard.writeText(window.location.href);if(status)status.textContent="Tautan berita berhasil disalin.";}catch(e){if(status)status.textContent="Silakan salin tautan dari alamat browser.";}}
+</script>
 </body>
 </html>
